@@ -45,7 +45,7 @@ h2 {padding:0 20px; line-height:1.5em;}
   <button onclick="checkName()">Next</button>
 </div>
 
-<!-- Ariba Pages Container -->
+<!-- Pages Container (Ariba & Habiba reuse same) -->
 <div id="aribaPages" class="screen"></div>
 
 <!-- Generic Screens -->
@@ -112,7 +112,9 @@ function goName(){ show('name'); }
 // Name Check
 function checkName(){
   let name=document.getElementById('username').value.toLowerCase().trim();
-  if(name==='ariba'){ startAribaFlow(); }else{ show('giftScreen'); }
+  if(name==='ariba'){ startAribaFlow(); }
+  else if(name==='habiba'){ startHabibaFlow(); }
+  else{ show('giftScreen'); }
 }
 
 // ARIBA FLOW
@@ -133,7 +135,6 @@ const aribaMessages=[
   "Happy New Year Didi ❤️‍🩹❤️‍🩹🎉🎆"
 ];
 let currentAriba=0;
-
 function startAribaFlow(){
   let container=document.getElementById('aribaPages');
   container.innerHTML='';
@@ -141,7 +142,6 @@ function startAribaFlow(){
   show('aribaPages');
   showAribaMessage();
 }
-
 function showAribaMessage(){
   let container=document.getElementById('aribaPages');
   container.innerHTML='';
@@ -161,6 +161,42 @@ function showAribaMessage(){
   container.appendChild(btn);
   burstConfetti();
   if(currentAriba>=2) burstFireworks();
+}
+
+// HABIBA FLOW
+const habibaMessages=[
+  "New Year…but it ain’t gonna be happy for u 💅",
+  "Wwwhhhhhaaaaaaaaattttttt?? 💅",
+  "Whyyyy u pppreeessssssiinnnggg neeexxxxttttt? I alr said no happy new years for u 🤧",
+  "Fine if u want it so bad, tell Ayyanu to wish it to u — me nai kar raha 😏"
+];
+let currentHabiba=0;
+function startHabibaFlow(){
+  let container=document.getElementById('aribaPages'); // reuse same container
+  container.innerHTML='';
+  currentHabiba=0;
+  show('aribaPages');
+  showHabibaMessage();
+}
+function showHabibaMessage(){
+  let container=document.getElementById('aribaPages');
+  container.innerHTML='';
+  let h=document.createElement('h2');
+  h.innerHTML=habibaMessages[currentHabiba];
+  container.appendChild(h);
+  let btn=document.createElement('button');
+  btn.innerText='Next';
+  btn.onclick=function(){
+    currentHabiba++;
+    if(currentHabiba<habibaMessages.length){
+      showHabibaMessage();
+      burstConfetti();
+      if(currentHabiba>=1) burstFireworks();
+    }
+  };
+  container.appendChild(btn);
+  burstConfetti();
+  if(currentHabiba>=1) burstFireworks();
 }
 
 // GENERIC FLOW
